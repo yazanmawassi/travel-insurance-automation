@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_09gt0f7" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Web Modeler" exporterVersion="204af60" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <decision id="decision-0vu1ysr" name="Alter, Wohnort und Personen prüfen">
+    <informationRequirement id="InformationRequirement_1g48a2y">
+      <requiredInput href="#InputData_04h9vjj" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0ej28xt">
+      <requiredInput href="#InputData_0u7qjua" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_14mu4u6">
+      <requiredInput href="#InputData_1xfn3u8" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1naf9h9">
+      <input id="Input_1" label="Alter">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text>years and months duration(date(travelInsurance.policyHolder.birthday), today()).years</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_02kf3lh" label="Herkunftsland" biodi:width="192">
+        <inputExpression id="LiteralExpression_1y8hgm9" typeRef="string">
+          <text>travelInsurance.policyHolder.address.country</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1lwsp3m" label="Versicherte Personen">
+        <inputExpression id="LiteralExpression_0gb9q2e" typeRef="number">
+          <text>count(travelInsurance.insuredPartners) + 1</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Grund" name="Grund" typeRef="string">
+        <outputValues id="UnaryTests_0simdsz">
+          <text>"Alter","Herkunft","Personen","Gut"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_02c85jr">
+        <inputEntry id="UnaryTests_04p044r">
+          <text>&gt;= 18</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t45j7u">
+          <text>"Deutschland","Germany","deutschland","germany"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v4iyba">
+          <text>&lt; 6</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14fh8y6">
+          <text>"Gut"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xoio98">
+        <inputEntry id="UnaryTests_0eftzpk">
+          <text>&lt; 18</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p2zh9y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yqjjlc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10s5ajv">
+          <text>"Alter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p1gsmy">
+        <inputEntry id="UnaryTests_1epevfz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qzseie">
+          <text>not("Deutschland", "Germany", "deutschland", "germany")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1skk0ae">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hjidce">
+          <text>"Herkunft"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15i6j4e">
+        <inputEntry id="UnaryTests_1a3aej1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zp6na4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kudylf">
+          <text>&gt;= 6</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08chg10">
+          <text>"Personen"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_04h9vjj" name="Alter" />
+  <inputData id="InputData_0u7qjua" name="Herkunftsland" />
+  <inputData id="InputData_1xfn3u8" name="Versicherte Personen" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="decision-0vu1ysr">
+        <dc:Bounds height="80" width="180" x="321" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1pw92ra" dmnElementRef="InputData_04h9vjj">
+        <dc:Bounds height="45" width="125" x="158" y="278" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1ufre0c" dmnElementRef="InputData_0u7qjua">
+        <dc:Bounds height="45" width="125" x="348" y="279" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0fvxdk5" dmnElementRef="InputData_1xfn3u8">
+        <dc:Bounds height="45" width="125" x="538" y="279" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1yp9vjc" dmnElementRef="InformationRequirement_1g48a2y">
+        <di:waypoint x="221" y="278" />
+        <di:waypoint x="366" y="200" />
+        <di:waypoint x="366" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0250cf5" dmnElementRef="InformationRequirement_0ej28xt">
+        <di:waypoint x="411" y="279" />
+        <di:waypoint x="411" y="200" />
+        <di:waypoint x="411" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0qdag6x" dmnElementRef="InformationRequirement_14mu4u6">
+        <di:waypoint x="601" y="279" />
+        <di:waypoint x="456" y="200" />
+        <di:waypoint x="456" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

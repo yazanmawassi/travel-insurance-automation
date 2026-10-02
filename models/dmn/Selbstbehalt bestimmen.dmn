@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_11osoa6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Web Modeler" exporterVersion="204af60" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <decision id="selbstbehalt-bestimmen-1qs6glz" name="Selbstbehalt bestimmen">
+    <informationRequirement id="InformationRequirement_05k4znp">
+      <requiredInput href="#InputData_02hr5et" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1vri558">
+      <requiredInput href="#InputData_0x03vtv" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0ql1mrg">
+      <requiredInput href="#InputData_1b85nbj" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0smmdao">
+      <input id="Input_1" label="Kundenstatus">
+        <inputExpression id="InputExpression_1" typeRef="&#34;Neukunden&#34;, &#34;Bestandskunden&#34;">
+          <text>if neukundinAngelegt = true then "Neukunden" else "Bestandskunden"</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_00tmg2w" label="Dauer der Reise">
+        <inputExpression id="LiteralExpression_0cvyqxc" typeRef="number">
+          <text>days between(date(travelInsurance.travelData.start), date(travelInsurance.travelData.end))</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0zj67tx" label="Reiseziel">
+        <inputExpression id="LiteralExpression_1rjplq4" typeRef="string">
+          <text>if list contains(
+  [
+    "de", "deutschland"
+  ],
+  lower case(travelInsurance.travelData.destination)
+)
+then "Deutschland"
+
+else if list contains(
+  [
+    "at", "österreich", "oesterreich",
+    "be", "belgien",
+    "bg", "bulgarien",
+    "hr", "kroatien",
+    "cy", "zypern",
+    "cz", "tschechien",
+    "dk", "dänemark", "daenemark",
+    "ee", "estland",
+    "fi", "finnland",
+    "fr", "frankreich",
+    "gr", "griechenland",
+    "hu", "ungarn",
+    "ie", "irland",
+    "it", "italien",
+    "lv", "lettland",
+    "lt", "litauen",
+    "lu", "luxemburg",
+    "mt", "malta",
+    "nl", "niederlande",
+    "pl", "polen",
+    "pt", "portugal",
+    "ro", "rumänien", "rumaenien",
+    "sk", "slowakei",
+    "si", "slowenien",
+    "es", "spanien",
+    "se", "schweden"
+  ],
+  lower case(travelInsurance.travelData.destination)
+)
+then "EU"
+
+else "Nicht-EU"</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0fg63im">
+          <text>"Deutschland","EU","Nicht-EU"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Selbstbehalt in Euro" name="Selbstbehalt" typeRef="number" />
+      <rule id="DecisionRule_1k5h18u">
+        <description></description>
+        <inputEntry id="UnaryTests_1vdjlk2">
+          <text>"Bestandskunden"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t2xkuw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0au963h">
+          <text>"Deutschland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13slfd8">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ayixu2">
+        <inputEntry id="UnaryTests_11kyeun">
+          <text>"Neukunden"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k62mso">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kkbc0a">
+          <text>"Deutschland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ry4h2t">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1altt2t">
+        <inputEntry id="UnaryTests_1r3ukw8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b65zcy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eu8ntn">
+          <text>"EU"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o88dde">
+          <text>250</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cana67">
+        <inputEntry id="UnaryTests_1j2bm56">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oov2qh">
+          <text>&lt;= 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lno9s1">
+          <text>"Nicht-EU"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1veq0eg">
+          <text>250</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1d41as7">
+        <inputEntry id="UnaryTests_0skispr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0titewy">
+          <text>[31..90]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ivdrxc">
+          <text>"Nicht-EU"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1oyyi9o">
+          <text>500</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17qhkwp">
+        <inputEntry id="UnaryTests_0pn4j83">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jv6m97">
+          <text>&gt; 90</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sc6xtn">
+          <text>"Nicht-EU"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1eoqcmc">
+          <text>0.2 * travelInsurance.travelData.cost</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_02hr5et" name="Kundinnenstatus" />
+  <inputData id="InputData_0x03vtv" name="Dauer der Reise" />
+  <inputData id="InputData_1b85nbj" name="Reiseziel" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="selbstbehalt-bestimmen-1qs6glz">
+        <dc:Bounds height="80" width="180" x="311" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0ib2pvf" dmnElementRef="InputData_02hr5et">
+        <dc:Bounds height="45" width="125" x="158" y="258" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0osplft" dmnElementRef="InputData_0x03vtv">
+        <dc:Bounds height="45" width="125" x="338" y="259" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0qstvtr" dmnElementRef="InputData_1b85nbj">
+        <dc:Bounds height="45" width="125" x="508" y="259" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1txulk2" dmnElementRef="InformationRequirement_05k4znp">
+        <di:waypoint x="221" y="258" />
+        <di:waypoint x="356" y="200" />
+        <di:waypoint x="356" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1umzb6x" dmnElementRef="InformationRequirement_1vri558">
+        <di:waypoint x="401" y="259" />
+        <di:waypoint x="401" y="200" />
+        <di:waypoint x="401" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0e0ojij" dmnElementRef="InformationRequirement_0ql1mrg">
+        <di:waypoint x="571" y="259" />
+        <di:waypoint x="446" y="200" />
+        <di:waypoint x="446" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

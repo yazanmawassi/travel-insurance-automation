@@ -1,0 +1,75 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "ffe380b"
+  },
+  "schemaVersion": 19,
+  "id": "form-18t1kyy",
+  "components": [
+    {
+      "label": "Straße",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0iqv7ha",
+        "columns": null
+      },
+      "id": "Field_178kocd",
+      "key": "travelInsurance.policyHolder.address.street",
+      "readonly": false
+    },
+    {
+      "label": "Hausnummer",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0iqv7ha",
+        "columns": null
+      },
+      "id": "Field_0c9ikbj",
+      "key": "travelInsurance.policyHolder.address.number",
+      "readonly": false
+    },
+    {
+      "label": "Postleitzahl",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0f1xogb",
+        "columns": null
+      },
+      "id": "Field_11a9vac",
+      "key": "travelInsurance.policyHolder.address.postCode"
+    },
+    {
+      "label": "Stadt",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0f1xogb",
+        "columns": null
+      },
+      "id": "Field_1u21akn",
+      "key": "travelInsurance.policyHolder.address.city"
+    },
+    {
+      "label": "Land",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_11dz6yy",
+        "columns": null
+      },
+      "id": "Field_1j61vr7",
+      "key": "travelInsurance.policyHolder.address.country"
+    },
+    {
+      "label": "Hinweis (Auswahl bestimmen)",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0no9ix7",
+        "columns": null
+      },
+      "id": "Field_141aoeh",
+      "key": "textarea"
+    }
+  ],
+  "type": "default"
+}

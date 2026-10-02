@@ -1,0 +1,43 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "ffe380b"
+  },
+  "schemaVersion": 19,
+  "id": "sachbearbeitung-partner-manuell-suchen-1okavoj",
+  "components": [
+    {
+      "label": "Korrekte Partnernummer",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0hb8jxb",
+        "columns": null
+      },
+      "id": "Field_0rtgxma",
+      "key": "travelInsurance.policyHolder.id"
+    },
+    {
+      "label": "Kommentar / Hinweis",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_03ftmr0",
+        "columns": null
+      },
+      "id": "Field_0469qnj",
+      "key": "partnerKommentar"
+    },
+    {
+      "label": "Partner nicht gefunden",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_005e14l",
+        "columns": null
+      },
+      "id": "Field_1qnyce3",
+      "key": "isChecked"
+    }
+  ],
+  "type": "default"
+}
