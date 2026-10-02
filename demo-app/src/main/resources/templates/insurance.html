@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="webjars/jquery/jquery.min.js"></script>
+    <title>Travel Insurance 3000</title>
+</head>
+<body>
+
+<main role="main" class="container"
+      th:object="${travelInsuranceRequest.travelInsurance}">
+
+    <h1 class="display-4 mb-5">The Future Travel Insurance Today!</h1>
+
+    <form id="insurance-form" role="form" method="post"
+          th:action="@{/travel-insurance}">
+
+        <h2 class="display-5">Allgemein</h2>
+
+        <div class="row mb-5">
+            <div class="col-6">
+                <h3 class="lead">Reisedaten</h3>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="date" id="start" name="start" th:field="*{travelData.start}"/>
+                    <label for="start">Beginn der Reise</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="date" id="end" name="end" th:field="*{travelData.end}"/>
+                    <label for="end">Letzter Tag der Reise</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="destination" name="destination" th:field="*{travelData.destination}"/>
+                    <label for="destination">Reiseziel</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="cost" name="cost" th:field="*{travelData.cost}"/>
+                    <label for="cost">Geschätzte Kosten</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select class="form-control" id="currency" name="currency" th:field="*{travelData.currency}">
+                        <option th:value="'EUR'" th:text="'Euro (EUR)'" selected></option>
+                        <option th:value="'USD'" th:text="'US Dollar (USD)'"></option>
+                        <option th:value="'GBP'" th:text="'Britisches Pfund (GBP)'"></option>
+                        <option th:value="'CHF'" th:text="'Schweizer Franken (CHF)'"></option>
+                    </select>
+                    <label for="currency">Währung</label>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <h3 class="lead">Zusatzleistungen</h3>
+
+                <div class="form-check form-switch">
+                    <label for="start">Gepäck-Versicherung?</label>
+                    <input class="form-check-input" type="checkbox" id="baggageInsurance" name="baggageInsurance" th:field="*{baggageInsurance}"/>
+                </div>
+
+                <div class="form-check form-switch">
+                    <label for="start">Reiserücktritt-Zusatz?</label>
+                    <input class="form-check-input" type="checkbox" id="travelCancellation" name="travelCancellation" th:field="*{travelCancellation}"/>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 class="display-5">Versicherungnehmer</h2>
+
+        <div class="row mb-5"
+             th:object="${travelInsuranceRequest.travelInsurance.policyHolder}">
+
+            <div class="col-6">
+                <h3 class="lead">Persönliche Daten</h3>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-id" name="ph-id" th:field="*{id}"/>
+                    <label for="start">Kundennummer</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-firstname" name="ph-firstname" th:field="*{firstname}"/>
+                    <label for="start">Vorname</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-lastname" name="ph-lastname" th:field="*{lastname}"/>
+                    <label for="start">Nachname</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="date" id="ph-birthday" name="ph-birthday" th:field="*{birthday}"/>
+                    <label for="end">Geburtsdatum</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-phone-number" name="ph-phone-number" th:field="*{phoneNumber}"/>
+                    <label for="end">Telefon</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-mail" name="ph-mail" th:field="*{mail}"/>
+                    <label for="end">E-Mail</label>
+                </div>
+            </div>
+
+            <div class="col-6"
+                 th:object="${travelInsuranceRequest.travelInsurance.policyHolder.address}">
+
+                <h3 class="lead">Anschrift</h3>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-street" name="ph-street" th:field="*{street}"/>
+                    <label for="end">Straße</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-number" name="ph-number" th:field="*{number}"/>
+                    <label for="end">Hausnummer</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-postCode" name="ph-postCode" th:field="*{postCode}"/>
+                    <label for="end">Postleitzahl</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-city" name="ph-city" th:field="*{city}"/>
+                    <label for="end">Stradt</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="ph-country" name="ph-country" th:field="*{country}"/>
+                    <label for="end">Land</label>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 class="display-5">Versicherte Personen</h2>
+
+        <div class="row mb-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Geburtsdatum</th>
+                    <th>Kind VN?</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="p, i: ${travelInsuranceRequest.travelInsurance.insuredPartners}">
+                    <td><input class="form-control-plaintext" type="text" readonly name="firstname" th:field="*{insuredPartners[__${i.index}__].firstname}"/></td>
+                    <td><input class="form-control-plaintext" type="text" readonly name="lastname" th:field="*{insuredPartners[__${i.index}__].lastname}"/></td>
+                    <td><input class="form-control-plaintext" type="text" readonly name="birthday" th:field="*{insuredPartners[__${i.index}__].birthday}"/></td>
+                    <td><input class="form-control-plaintext" type="text" readonly name="childOfPolicyHolder" th:field="*{insuredPartners[__${i.index}__].childOfPolicyHolder}" /></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row g-3 mb-5" th:object="${nextPartner}">
+
+            <h3 class="lead">Versicherte Person hinzufügen</h3>
+
+            <div class="col-md-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control form-control" type="text" id="firstname" name="firstname" th:field="*{firstname}"/>
+                    <label for="start">Vorname</label>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control form-control" type="text" id="lastname" name="lastname" th:field="*{lastname}"/>
+                    <label for="start">Nachname</label>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-floating mb-3">
+                    <input class="form-control form-control" type="date" id="birthday" name="birthday" th:field="*{birthday}"/>
+                    <label for="end">Geburtsdatum</label>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-check form-switch">
+                    <label for="start">Kind VN?</label>
+                    <input class="form-check-input form-control" type="checkbox" id="childOfPolicyholder" name="childOfPolicyholder"
+                           th:field="*{childOfPolicyHolder}"/>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-primary" type="submit" name="addPerson">Hinzufügen</button>
+            </div>
+        </div>
+
+        <div class="mb-5 text-right">
+            <button class="btn btn-outline-secondary" type="reset">Zurücksetzen</button>
+            <button class="btn btn-primary" type="submit">Senden</button>
+        </div>
+    </form>
+
+
+</main>
+</body>
+</html>
